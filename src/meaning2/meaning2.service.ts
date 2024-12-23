@@ -107,4 +107,21 @@ export class meaning2Service {
     // Wrap the result in { result: ... }
     return aggregationResult[0];
   }
+
+  async getWordSuggestion(word: string): Promise<string[]> {
+    try {
+      // Use the aggregation pipeline to filter and sample documents
+      const suggestions = await this.meaning2Model.aggregate([
+        { $match: { word: { $regex: `^${word}`, $options: 'i' } } }, // Match words starting with the input, case-insensitive
+        { $sample: { size: 5 } }, // Randomly sample up to 5 documents
+        { $project: { word: 1, _id: 0 } }, // Include only the 'word' field, exclude '_id'
+      ]);
+
+      // Extract the 'word' field from the results
+      return suggestions.map((doc) => doc.word);
+    } catch (error) {
+      console.error('Error fetching word suggestions:', error);
+      throw new Error('Failed to fetch word suggestions');
+    }
+  }
 }

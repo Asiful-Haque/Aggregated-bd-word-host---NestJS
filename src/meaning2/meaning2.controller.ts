@@ -15,4 +15,10 @@ export class meaning2Controller {
     );
     return { result };
   }
+  @Get('/wordSuggestion/:word')
+  async getWordSuggestion(@Param('word') word: string): Promise<any> {
+    const result_suggestion =
+      await this.meaning2Service.getWordSuggestion(word);
+    return { result_suggestion };
+  }
 }
