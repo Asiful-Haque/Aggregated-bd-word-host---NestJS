@@ -4,6 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 // import { meaningModule } from './meaning/meaning.module';
 import { meaning2Module } from './meaning2/meaning2.module';
 import { spellingModule } from './spelling/spelling.module';
+import { Game1Module } from './game1/game1.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { spellingModule } from './spelling/spelling.module';
     // meaningModule,
     meaning2Module,
     spellingModule,
+    Game1Module,
   ],
   controllers: [],
   providers: [],
